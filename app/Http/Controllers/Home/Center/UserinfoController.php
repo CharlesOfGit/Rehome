@@ -35,7 +35,7 @@ class UserinfoController extends BaseController
         $username    = session()->get('username');
         $password    = User::where("username", $username)->value('password');
         if ($oldpassword == $password) {
-            $re      = DB::table('user')->where('username', $username)->update(array('password' => "$newpassword"));
+            $re      = DB::table('user')->where('username', $username)->update(['password' => $newpassword]);
             $message = $re ? "修改成功" : "修改失败";
             return redirect()->back()->with('message', $message);
         } else {

@@ -1,7 +1,7 @@
 @extends('Home.public.center')
-@section('title',"我的购物车")
+@section('title', "我的购物车")
 @section('main')
-<h3>我的购物车</h3>
+<h3> 我的购物车 </h3>
 <div class="flowBox">
     <form id="formCart" name="formCart" method="post" action="{{url('cart/update')}}">
         <table width="99%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#aacded">
@@ -13,26 +13,56 @@
                 <th>操作</th>
             </tr>
             @foreach($cartlist as $v)
-            <tr>
+            <tr id="tr-{{$v->productid}}">
                 <td>{{$v->title}}</td>
                 <td>
                     <img style="width:80px; height:80px;" src="{{asset('uploads')}}/{{$v->path}}" title="图片">
                 </td>
-                <td>{{$v->price}}元</td>
+                <td><span id="p-{{$v->productid}}">{{$v->price}}</span>元</td>
                 <td>
-                    <input type="text" name="number" value="{{$v->buynum}}" size="4" class="inputBg" style="text-align:center" autocomplete="off">
+                    {{csrf_field()}}
+                    <input type="text" id="product-{{$v->productid}}" name="number" value="{{$v->buynum}}" size="4" class="inputBg" style="text-align:center" onblur="changeNum({{$v->productid}},this.value)">
                 </td>
-                <td>{{$v->price*$v->buynum}}元</td>
+                <td><span id="total-{{$v->productid}}"> {{$v->price*$v->buynum}}</span>元</td>
                 <td><a href="">删除</a></td>
             </tr>
             <input type="hidden" name="" value="{{$total += $v->price*$v->buynum}}">
             @endforeach
         </table>
+        <script>
+            function changeNum(productid,num){
+            var url = "{{url('center/cartchangeNum')}}";
+            var data = { 
+                'productid': productid, 
+                'num': num,
+                "_token": $('input[name=_token]').val(),
+            };
+            var success = function(response)
+            {
+                if (response.errno == 1) {
+                                var price = ($("#product-" + productid).val()) * ($("#p-" + productid).html());
+                                $("#total-" + productid).html(price);
+                            }
+            }
+            $.post(url, data, success, "json");
+        }
+         function delPro(productid) {
+                //通过ajax将商品的id传递给PHP脚本进行数据表的删除
+                var url = "deleteProduct.php";
+                var data = { "productid": productid };
+                var success = function(response) {
+                    if (response.errno == 0) {
+                        $("#tr-" + productid).remove();
+                    }
+                }
+                $.get(url, data, success, "json");
+        }
+        </script>
         <table width="99%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
             <tbody>
                 <tr>
                     <td bgcolor="#ffffff">
-                        购物金额小计
+                        总金额
                         {{$total}}
                         元
                     </td>

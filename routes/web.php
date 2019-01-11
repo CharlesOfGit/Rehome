@@ -70,6 +70,8 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('center/shoucang', "Center\CenterController@shoucang")->middleware('center');
     //我的购物车
     Route::get('center/cartlist', "Center\CartlistController@list")->middleware('center');
+    //商品数量修改
+    Route::post('center/cartchangeNum', "Center\CartlistController@changeNum")->middleware('center');
     //购物车添加
     Route::post('cart/add', "Cart\CartController@add")->middleware('center');
 
