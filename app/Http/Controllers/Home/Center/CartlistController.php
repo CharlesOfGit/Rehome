@@ -45,4 +45,47 @@ class CartlistController extends BaseController
 
         echo json_encode($response);
     }
+
+    public function delPro(Request $request)
+    {
+        $productid = $request->get('productid');
+        $num       = $request->get('num');
+        $username  = session()->get('username');
+        $userid    = User::where("username", $username)->value('id');
+        $re        = DB::table('cart')->where('userid', $userid)->where('productid', $productid)->delete();
+        if ($re) {
+            $response = array(
+                'errno'  => 1,
+                'errmsg' => 'success',
+                'data'   => true,
+            );
+        } else {
+            $response = array(
+                'errno'  => -1,
+                'errmsg' => 'fail',
+                'data'   => false,
+            );
+        }
+        echo json_encode($response);
+    }
+    public function clearPro(Request $request)
+    {
+        $username = session()->get('username');
+        $userid   = User::where("username", $username)->value('id');
+        $re       = DB::table('cart')->where('userid', $userid)->delete();
+        if ($re) {
+            $response = array(
+                'errno'  => 1,
+                'errmsg' => 'success',
+                'data'   => true,
+            );
+        } else {
+            $response = array(
+                'errno'  => -1,
+                'errmsg' => 'fail',
+                'data'   => false,
+            );
+        }
+        echo json_encode($response);
+    }
 }

@@ -48,13 +48,13 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('UserLogin', 'Account\UserController@Login');
     Route::post('login/check', "Account\UserController@check");
     Route::get('UserLogout', 'Account\UserController@UserLogout');
-//用户注册
+    //用户注册
     Route::get('UserRegister', 'Account\UserController@register');
     Route::post('user/save', "Account\UserController@save");
-// 分类菜单
+    // 分类菜单
     Route::get('product/lister/{pid}', "Product\ProductController@lister");
     Route::get('product/detail/{id}', "Product\ProductController@detail");
-// 个人中心
+    // 个人中心
     Route::get('center/userinfo', "Center\UserinfoController@userinfo")->middleware('center');
     Route::post('userinfo/pwdsave', "Center\UserinfoController@pwdsave")->middleware('center');
     Route::post('userinfo/infosave', "Center\UserinfoController@infosave")->middleware('center');
@@ -72,6 +72,8 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('center/cartlist', "Center\CartlistController@list")->middleware('center');
     //商品数量修改
     Route::post('center/cartchangeNum', "Center\CartlistController@changeNum")->middleware('center');
+    Route::get('center/delPro', "Center\CartlistController@delPro")->middleware('center');
+    Route::get('center/clearPro', "Center\CartlistController@clearPro")->middleware('center');
     //购物车添加
     Route::post('cart/add', "Cart\CartController@add")->middleware('center');
 

@@ -27,7 +27,7 @@ class CartController extends BaseController
         //商品价格
         $productprice = Product::where("id", $productid)->value('price');
         $orgnum       = Cart::where('userid', $userid)->where('productid', $productid)->value('buynum');
-        if (!empty($oldnum)) {
+        if (!empty($orgnum)) {
             $re = DB::table('cart')
                 ->where('userid', $userid)
                 ->where('productid', $productid)
