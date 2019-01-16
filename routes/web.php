@@ -76,5 +76,6 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('center/clearPro', "Center\CartlistController@clearPro")->middleware('center');
     //购物车添加
     Route::post('cart/add', "Cart\CartController@add")->middleware('center');
-
+    //结算
+    Route::post('settlement', "Center\SettlementController@settlement")->middleware('center');
 });

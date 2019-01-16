@@ -15,7 +15,7 @@ class CartlistController extends BaseController
         $cartlist = DB::table('cart')
             ->join('product', 'cart.productid', '=', 'product.id')
             ->join('productimage', 'cart.productid', '=', 'productimage.productid')
-            ->select('cart.buynum', 'cart.price', 'cart.productid', 'product.title', 'productimage.path')
+            ->select('cart.buynum', 'cart.id', 'cart.price', 'cart.productid', 'product.title', 'productimage.path')
             ->where('userid', $userid)
             ->get();
 
