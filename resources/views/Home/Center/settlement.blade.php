@@ -4,12 +4,32 @@
 <h3>结算页</h3>
 <div class="table table-bordered">
     <table class="table">
+        <h4>收货人信息</h4>
         <tr>
             <td colspan="4">
-                <h4>收货人信息</h4>
-                <span>姓名</span>
-                <span>地址</span>
-                <span>电话</span>
+                <div class="panel-group" id="accordion">
+                    <div>
+                        <div>
+                            @foreach($address as $v)
+                            <span>&nbsp;&nbsp;&nbsp;{{$v->consignee}}</span>
+                            <span>{{$v->address}}</span>
+                            <span>{{$v->mobile}}</span>
+                            @endforeach
+                        </div>
+                        &nbsp;&nbsp;
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">更多地址</a>
+                        <div id="collapseOne" class="panel-collapse collapse" aria-labelledby="headingOne">
+                            <div>
+                                @foreach($alladdress as $v)
+                                <span>&nbsp;&nbsp;&nbsp;{{$v->consignee}}</span>
+                                <span>{{$v->address}}</span>
+                                <span>{{$v->mobile}}</span>
+                                <br>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
         <tr>
