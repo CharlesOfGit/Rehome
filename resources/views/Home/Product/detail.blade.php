@@ -7,8 +7,7 @@
             <ul>
                 @foreach($images as $v)
                 <li>
-                    <a  href="{{asset('uploads')}}/{{$v->path}}" rel="zoom1" rev="{{asset('uploads')}}/{{$v->path}}" title="">
-        <img src="{{asset('uploads')}}/{{$v->path}}" alt="{{$product->title}}" class="B_red" /></a>
+                    <img src="{{asset('uploads')}}/{{$v->path}}" alt="{{$product->title}}" class="B_red" />
                 </li>
                 @endforeach
             </ul>

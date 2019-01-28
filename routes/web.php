@@ -78,4 +78,5 @@ Route::group(['namespace' => 'Home'], function () {
     Route::post('cart/add', "Cart\CartController@add")->middleware('center');
     //结算
     Route::post('settlement', "Center\SettlementController@settlement")->middleware('center');
+    Route::post('settlement/setAddress', "Center\SettlementController@setAddress")->middleware('center');
 });

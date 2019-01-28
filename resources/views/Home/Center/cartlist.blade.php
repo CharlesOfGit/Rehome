@@ -15,7 +15,7 @@
             <th>操作</th>
         </tr>
         @foreach($cartlist as $v)
-        <tr id="tr-{{$v->productid}}">
+        <tr id="tr-{{$v->productid}}" class="products">
             <td><input type="checkbox" name="cartid_{{$v->productid}}" value="{{$v->id}}" class="itemSelect"></td>
             <td>{{$v->title}}</td>
             <td>
@@ -69,7 +69,6 @@
         };
         var success = function(response) {
             if (response.errno == 1) {
-                var $cartCheckBox = $(".itemSelect");
                 var price = ($("#product-" + productid).val()) * ($("#p-" + productid).html());
                 $("#total-" + productid).html(price);
 

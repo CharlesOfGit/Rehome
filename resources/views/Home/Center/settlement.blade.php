@@ -4,16 +4,21 @@
 <h3>结算页</h3>
 <div class="table table-bordered">
     <table class="table">
-        <h4>收货人信息</h4>
         <tr>
-            <td colspan="4">
+            <td colspan="4" id="addressInfo">
+                <h4>收货人信息</h4>
                 <div class="panel-group" id="accordion">
                     <div>
-                        <div>
+                        <div id="addressinfo">
                             @foreach($address as $v)
-                            <span>&nbsp;&nbsp;&nbsp;{{$v->consignee}}</span>
-                            <span>{{$v->address}}</span>
-                            <span>{{$v->mobile}}</span>
+                            <div>
+                                <span>&nbsp;&nbsp;&nbsp;{{$v->consignee}}</span>
+                                <span>{{$v->address}}</span>
+                                <span>{{$v->mobile}}</span>
+                                @if($v->status == 1)
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-default">默认地址</span>
+                                @endif
+                            </div>
                             @endforeach
                         </div>
                         &nbsp;&nbsp;
@@ -21,10 +26,17 @@
                         <div id="collapseOne" class="panel-collapse collapse" aria-labelledby="headingOne">
                             <div>
                                 @foreach($alladdress as $v)
-                                <span>&nbsp;&nbsp;&nbsp;{{$v->consignee}}</span>
-                                <span>{{$v->address}}</span>
-                                <span>{{$v->mobile}}</span>
-                                <br>
+                                <div class="pull-left" id="newaddress_{{$v->id}}">
+                                    <span>&nbsp;&nbsp;&nbsp;{{$v->consignee}}</span>
+                                    <span>{{$v->address}}</span>
+                                    <span>{{$v->mobile}}</span>
+                                    @if($v->status == 1)
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-default">默认地址</span>
+                                    @endif
+                                </div>
+                                <div class="pull-right">
+                                    <a href="javascript:void(0);" onclick="setAddress({{$v->id}})">选择地址</a>
+                                </div> <br>
                                 @endforeach
                             </div>
                         </div>
@@ -32,6 +44,21 @@
                 </div>
             </td>
         </tr>
+        <script>
+        function setAddress(id) {
+            var url = "{{url('settlement/setAddress')}}";
+            var data = {
+                "id": id,
+                "_token": $('input[name=_token]').val()
+            };
+            var success = function(response) {
+                if (response.errno == 1) {
+                    parent.location.reload();
+                }
+            }
+            $.post(url, data, success, "json");
+        }
+        </script>
         <tr>
             <td colspan="4">
                 <h4>支付方式</h4>
@@ -53,6 +80,7 @@
         </tr>
     </table>
     <div>
+        {{csrf_field()}}
         <button>返回购物车</button>
         <button>提交订单</button>
     </div>

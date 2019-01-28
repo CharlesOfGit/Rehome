@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         @foreach($cols as $v1)
-        <div class="col-sm-6 col-md-4">
+        <div class="col-sm-4 col-md-3">
             <div class="thumbnail">
                 @foreach($images as $v)
                 <p class="pic">
@@ -15,7 +15,7 @@
                     <h3> <a href="{{url('product/detail',['id'=>$v1->id])}}" title="{{$v1->title}}">{{$v1->title}} </a></h3>
                     <p class="price">
                         市场价：<span class="marketPrice">￥{{$v1->price}}元</span><br />
-                        会员价：<span class="goodsPrice">￥{{$v1->userprice}}元</span>
+                        商品介绍：<span class="goodsPrice">{{str_limit($v1->content,10)}}</span>
                     </p>
                 </div>
             </div>
