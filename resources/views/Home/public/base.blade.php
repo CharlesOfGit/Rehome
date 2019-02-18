@@ -11,7 +11,6 @@
     <link href="{{URL::asset('/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('/css/menutop.css')}}" rel="stylesheet">
-    <link href="{{URL::asset('/css/detail.css')}}" rel="stylesheet">
 </head>
 
 <body>
