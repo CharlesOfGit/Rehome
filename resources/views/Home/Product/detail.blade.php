@@ -2,34 +2,43 @@
 @section('title',"商品详情")
 @section('main')
 <div class="container">
-    <form>
-        <div id="demo1">
-            <ul>
+    <div class="row">
+        <form>
+            <div class="col-md-5">
                 @foreach($images as $v)
-                <li>
-                    <img src="{{asset('uploads')}}/{{$v->path}}" alt="{{$product->title}}" class="B_red" />
-                </li>
+                <img src="{{asset('uploads')}}/{{$v->path}}" class="col-md-12" alt="{{$product->title}}" />
                 @endforeach
-            </ul>
-        </div>
-        <ul class="line">
-            <li>市 场 价：<span class="marketPrice">￥{{$product->price}}元</span></li>
-            <li>商品库存： {{$product->libnum}}</li>
-            <li>购买数量：
-                <input name="number" type="text" id="number" value="0" size="4" />
+            </div>
+                <div class="col-md-7">
+                    <div><h3>{{$product->title}}</h3>
+                        <div>价格：<span class="marketPrice">￥{{$product->price}}元</span></div>
+                        <div>商品库存： {{$product->libnum}}</div>
+                        <div>购买数量：<input name="number" type="text" id="number" value="1" size="4" /></div>
+                    </div>
+                    <div>
+                        {{csrf_field()}}
+                        <a class="btn btn-primary" href="javascript:addCatr({{$product->id}})"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</a>
+                        <button class="btn btn-success btn-favor">❤ 收藏</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+    <div class="product-detail" style="margin:15px;">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="#product-detail-tab" aria-controls="product-detail-tab" role="tab" data-toggle="tab" aria-selected="true">商品详情</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#product-reviews-tab" aria-controls="product-reviews-tab" role="tab" data-toggle="tab" aria-selected="false">用户评价</a>
             </li>
         </ul>
-        <ul>
-            <ul>
-                <li id="itemBtnList">
-                    {{csrf_field()}}
-                    <a class="btn btn-default" href="javascript:addCatr({{$product->id}})"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</a>
-                    <button class="btn btn-default"><span class="glyphicon glyphicon-star"></span>收藏</button>
-                </li>
-            </ul>
-        </ul>
-    </form>
-    <div id="div1"></div>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="product-detail-tab">
+                {{$product->content}}</div>
+            <div role="tabpanel" class="tab-pane" id="product-reviews-tab">
+                未完成 </div>
+        </div>
+    </div>
 </div>
 <script type="text/javascript">
 function addCatr(productid) {
