@@ -13,10 +13,6 @@ class CenterController extends BaseController
     {
         return view("Home.Center.dingdan");
     }
-    public function shoucang()
-    {
-        return view("Home.Center.shoucang");
-    }
     public function message()
     {
         return view("Home.Center.message");

@@ -67,7 +67,7 @@ Route::group(['namespace' => 'Home'], function () {
     //
     Route::get('center/dingdan', "Center\CenterController@dingdan")->middleware('center');
     Route::get('center/message', "Center\CenterController@message")->middleware('center');
-    Route::get('center/shoucang', "Center\CenterController@shoucang")->middleware('center');
+    Route::get('center/collect', "Center\CollectController@collect")->middleware('center');
     //我的购物车
     Route::get('center/cartlist', "Center\CartlistController@list")->middleware('center');
     //商品数量修改
@@ -76,6 +76,9 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('center/clearPro', "Center\CartlistController@clearPro")->middleware('center');
     //购物车添加
     Route::post('cart/add', "Cart\CartController@add")->middleware('center');
+    //添加收藏
+    Route::post('collect/add', "Center\CollectController@add")->middleware('center');
+    Route::get('collect/delPro', "Center\CollectController@delPro")->middleware('center');
     //结算
     Route::post('settlement', "Center\SettlementController@settlement")->middleware('center');
     Route::post('settlement/setAddress', "Center\SettlementController@setAddress")->middleware('center');

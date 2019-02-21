@@ -40,7 +40,7 @@
                         <li><a  href="{{url('center/dingdan')}}">我的订单</a></li>
                         <li><a  href="{{url('center/address')}}"> 收货地址</a></li>
                         <li><a  href="{{url('center/cartlist')}}">我的购物车</a></li>
-                        <li><a  href="{{url('center/shoucang')}}">我的收藏</a></li>
+                        <li><a  href="{{url('center/collect')}}">我的收藏</a></li>
                         <li><a  href="{{url('center/message')}}">我的留言</a></li>
                         <li><a style="color:#ff6600" href="{{url('UserLogout')}}">[退出]</a></li>
                     </ul>

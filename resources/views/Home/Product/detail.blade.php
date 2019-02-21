@@ -3,25 +3,30 @@
 @section('main')
 <div class="container">
     <div class="row">
-        <form>
-            <div class="col-md-5">
-                @foreach($images as $v)
-                <img src="{{asset('uploads')}}/{{$v->path}}" class="col-md-12" alt="{{$product->title}}" />
+        <div class="col-md-5">
+            @foreach($images as $v)
+            <img src="{{asset('uploads')}}/{{$v->path}}" class="col-md-12" alt="{{$product->title}}" />
                 @endforeach
             </div>
-                <div class="col-md-7">
-                    <div><h3>{{$product->title}}</h3>
-                        <div>价格：<span class="marketPrice">￥{{$product->price}}元</span></div>
-                        <div>商品库存： {{$product->libnum}}</div>
-                        <div>购买数量：<input name="number" type="text" id="number" value="1" size="4" /></div>
-                    </div>
-                    <div>
-                        {{csrf_field()}}
-                        <a class="btn btn-primary" href="javascript:addCatr({{$product->id}})"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</a>
-                        <button class="btn btn-success btn-favor">❤ 收藏</button>
-                    </div>
+            <div class="col-md-7">
+                <div style="margin: 100px;"></div>
+                <div><h1>{{$product->title}}</h1>
+                    <div>价格：<span class="marketPrice">￥{{$product->price}}元</span></div>
+                    <div>商品库存： {{$product->libnum}}</div>
+                    <div>购买数量：<input name="number" type="text" id="number" value="1" size="4" autocomplete="off" /></div>
                 </div>
-        </form>
+                <div style="margin: 60px;"></div>
+                <div>
+                    {{csrf_field()}}
+                    @if($collectListid)
+                    <a href="javascript:delPro({{$product->id}})" class="btn btn-danger btn-disfavor">取消收藏</a>
+                    @else
+                    <a href="javascript:addCollect({{$product->id}})"  class="btn btn-success btn-favor">❤ 收藏</a>
+                    @endif
+                    <a class="btn btn-primary" href="javascript:addCatr({{$product->id}})"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="product-detail" style="margin:15px;">
         <ul class="nav nav-tabs" role="tablist">
@@ -58,6 +63,33 @@ function addCatr(productid) {
     }
 
     $.post(url, data, success, "json", "_token");
+}
+
+function addCollect(productid) {
+    var url = "{{url('collect/add')}}";
+    var data = {
+        "productid": productid,
+        "_token": $('input[name=_token]').val(),
+    };
+    var success = function(re) {
+        if (re.result == 'success') {
+            window.location.reload();
+        } else {
+            alert(re.msg);
+        }
+    }
+    $.post(url, data, success, "json", "_token");
+}
+
+function delPro(productid) {
+    var url = "{{url('collect/delPro')}}";
+    var data = { "productid": productid };
+    var success = function(response) {
+        if (response.errno == 1) {
+            window.location.reload();
+        }
+    }
+    $.get(url, data, success, "json");
 }
 </script>
 @endsection

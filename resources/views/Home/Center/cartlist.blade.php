@@ -23,7 +23,7 @@
                 </td>
             <td><span id="p-{{$v->productid}}">{{$v->price}}</span>元</td>
             <td>
-                <input type="text" id="product-{{$v->productid}}" name="number" value="{{$v->buynum}}" size="4" style="text-align:center" onblur="changeNum({{$v->productid}},this.value)">
+                <input type="text" id="product-{{$v->productid}}" name="number" value="{{$v->buynum}}" autocomplete="off" autocomplete="off" size="4" style="text-align:center" onblur="changeNum({{$v->productid}},this.value)">
             </td>
             <td><span id="total-{{$v->productid}}" class="total-{{$v->productid}}">{{$v->price*$v->buynum}}</span>元</td>
             <td>
