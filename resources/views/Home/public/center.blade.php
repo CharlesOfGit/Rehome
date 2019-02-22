@@ -9,6 +9,7 @@
     <link href="{{URL::asset('/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('/css/menutop.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('/css/sweetalert2.min.css')}}" rel="stylesheet">
 
 </head>
 
@@ -135,6 +136,7 @@
     <!-- footer end-->
     <script src="{{URL::asset('/js/jquery3.js')}}"></script>
     <script src="{{URL::asset('/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{URL::asset('/js/sweetalert2.min.js')}}"></script>
 
 </body>
 
