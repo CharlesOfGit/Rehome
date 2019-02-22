@@ -55,15 +55,7 @@ function addCatr(productid) {
     };
     var success = function(re) {
         if (re.result == 'success') {
-            Swal.fire({
-                position: 'center',
-                type: 'success',
-                title: '成功',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(function() { // 这里加了一个 then() 方法
-                location.reload();
-            });
+            alert(re.msg);
         } else {
             alert(re.msg);
         }
@@ -81,15 +73,7 @@ function addCollect(productid) {
     };
     var success = function(re) {
         if (re.result == 'success') {
-            Swal.fire({
-                position: 'center',
-                type: 'success',
-                title: '成功',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(function() { // 这里加了一个 then() 方法
-                location.reload();
-            });
+            window.location.reload();
         } else {
             alert(re.msg);
         }

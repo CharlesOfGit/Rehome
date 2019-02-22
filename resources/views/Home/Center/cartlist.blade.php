@@ -37,8 +37,19 @@
         <tbody>
             <tr>
                 <td align="right" bgcolor="#ffffff">
-                    <input class="btn btn-danger btn-disfavor" type="button" value="清空购物车" onclick="clearCart()">
-                    <input class="btn btn-primary" type="submit" value="去结算">
+                    <input type="button" value="清空购物车" onclick="clearCart()">
+                    <input type="submit" value="去结算">
+                    <script type="text/javascript">
+                    function clearCart() {
+                        var url = "{{url('center/clearPro')}}";
+                        var success = function(response) {
+                            if (response.errno == 1) {
+                                $(".products").remove();
+                            }
+                        }
+                        $.get(url, success, 'json');
+                    }
+                    </script>
                 </td>
             </tr>
         </tbody>
@@ -75,16 +86,6 @@
             }
         }
         $.get(url, data, success, "json");
-    }
-
-    function clearCart() {
-        var url = "{{url('center/clearPro')}}";
-        var success = function(response) {
-            if (response.errno == 1) {
-                $(".products").remove();
-            }
-        }
-        $.get(url, success, 'json');
     }
     </script>
 </form>
