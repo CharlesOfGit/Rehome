@@ -128,7 +128,16 @@
     <script src="{{URL::asset('/js/jquery3.js')}}"></script>
     <script src="{{URL::asset('/js/sweetalert2.min.js')}}"></script>
     <script src="{{URL::asset('/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-
+    @if(session()->has('message'))
+    <script type="text/javascript">
+    Swal.fire({
+        type: 'error',
+        title: "{{session()->get('message','')}}",
+        animation: false,
+        customClass: 'animated tada'
+    })
+    </script>
+    @endif
 </body>
 
 </html>

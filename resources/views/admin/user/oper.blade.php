@@ -17,14 +17,12 @@
         <td>{{$v->username}}</td>
         <td>{{$v->email}}</td>
         <th>{{$v->created_at}}</th>
-        <td>{{$v->admin}}</td>
         <td>
-            <a href="{{url('user/alter',['id'=>$v['id']])}}">管理员添加</a>&nbsp;&nbsp;
-            <a href="{{url('user/alteroff',['id'=>$v['id']])}}">管理员取消</a>&nbsp;&nbsp;
-            <a href="{{url('user/delete',['id'=>$v['id']])}}" onclick="javaScript:alert('您确定要删除吗？');">删除</a>
+            <a href="{{url('user/alter',['id'=>$v['id']])}}">添加</a>&nbsp;&nbsp;
+            <a href="{{url('user/alteroff',['id'=>$v['id']])}}">取消</a>&nbsp;&nbsp;
         </td>
+        <td> <a href="{{url('user/delete',['id'=>$v['id']])}}" onclick="javaScript:alert('您确定要删除吗？');">删除</a></td>
     </tr>
     @endforeach
-
 </table>
 @endsection
