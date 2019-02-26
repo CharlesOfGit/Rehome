@@ -16,29 +16,31 @@
         </tr>
         @foreach($cartlist as $v)
         <tr id="tr-{{$v->productid}}" class="products">
-            <td><input type="checkbox" name="cartid_{{$v->productid}}" value="{{$v->id}}" class="itemSelect"></td>
+            <td><input type="checkbox" name="cartid_{{$v->id}}" value="{{$v->id}}" class="itemSelect" onclick="checkCheckBox({{$v->productid}})" id="cartid_{{$v->productid}}"></td>
             <td>{{$v->title}}</td>
             <td>
                 <img style="width:80px; height:80px;" src="{{ asset('uploads') }}/{{$v->path}}" title="图片">
-                </td>
+            </td>
             <td><span id="p-{{$v->productid}}">{{$v->price}}</span>元</td>
             <td>
-                <input type="text" id="product-{{$v->productid}}" name="number" value="{{$v->buynum}}" autocomplete="off" autocomplete="off" size="4" style="text-align:center" onblur="changeNum({{$v->productid}},this.value)">
+                <input type="text" id="product-{{$v->productid}}" value="{{$v->buynum}}" autocomplete="off" size="4" style="text-align:center" onblur="changeNum({{$v->productid}},this.value)">
             </td>
             <td><span id="total-{{$v->productid}}" class="total-{{$v->productid}}">{{$v->price*$v->buynum}}</span>元</td>
             <td>
                 <a href="javascript:void(0);" onclick="delPro({{$v->productid}})">删除</a>
             </td>
         </tr>
-        {{csrf_field()}}
         @endforeach
     </table>
     <table width="99%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
         <tbody>
             <tr>
-                <td align="right" bgcolor="#ffffff">
+                <td align="left">
                     <input class="btn btn-danger btn-disfavor" type="button" value="清空购物车" onclick="clearCart()">
-                    <input class="btn btn-primary" type="submit" value="去结算">
+                </td>
+                <td align="right">
+                    {{csrf_field()}}
+                    <button type="submit" class="btn btn-primary" id="GoSettlement" onclick="goSettlement()" disabled="disabled">去结算</button>
                 </td>
             </tr>
         </tbody>
@@ -46,9 +48,21 @@
     <script>
     function selectAll(selectAll) {
         $(".itemSelect").prop("checked", $(selectAll).prop("checked"));
+        if ((document.getElementById("allCheck").checked) == true) {
+            document.getElementById("GoSettlement").disabled = ""; //给BUTTON按钮的disabled属性赋值
+        } else {
+            document.getElementById("GoSettlement").disabled = "disabled";
+        }
     }
-    </script>
-    <script>
+
+    function checkCheckBox(cartid) {
+        if ((document.getElementById("cartid_" + cartid).checked) == true) {
+            document.getElementById("GoSettlement").disabled = ""; //给BUTTON按钮的disabled属性赋值
+        } else {
+            document.getElementById("GoSettlement").disabled = "disabled";
+        }
+    }
+
     function changeNum(productid, num) {
         var url = "{{url('center/cartchangeNum')}}";
         var data = {

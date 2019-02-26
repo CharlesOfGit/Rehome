@@ -10,10 +10,12 @@ class SettlementController extends BaseController
 {
     public function settlement(Request $request)
     {
-        $arr        = $request->all();
+        $arr = $request->all();
+        dd($arr);
         $userid     = session()->get('centeruserid');
         $address    = Address::where("userid", $userid)->where("status", 1)->get();
         $alladdress = Address::where("userid", $userid)->get();
+
         return view("Home.Center.settlement", ['address' => $address, 'alladdress' => $alladdress]);
     }
     public function setAddress(Request $request)
