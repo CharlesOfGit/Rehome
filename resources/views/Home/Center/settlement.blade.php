@@ -5,7 +5,7 @@
 <div class="table table-bordered">
     <table class="table">
         <tr>
-            <td colspan="4" id="addressInfo">
+            <td colspan="5" id="addressInfo">
                 <h4>收货人信息</h4>
                 <div class="panel-group" id="accordion">
                     <div>
@@ -60,7 +60,7 @@
         }
         </script>
         <tr>
-            <td colspan="4">
+            <td colspan="5">
                 <h4>支付方式</h4>
                 <p>
                     <span>货到付款</span>
@@ -72,17 +72,28 @@
             <td colspan="4"><h4>商品信息</h4>
             </td>
         </tr>
-        <tr>
-            <td>商品名称</td>
+        <tr style="text-align:center">
+            <td colspan="2">商品名称</td>
             <td>单价</td>
             <td>数量</td>
             <td>小计</td>
         </tr>
+        @foreach($settlementList as $v)
+        <tr align="center">
+            <td>{{$v->title}}</td>
+            <td>
+                <img style="width:80px; height:80px;" src="{{ asset('uploads') }}/{{$v->path}}" title="图片">
+            </td>
+            <td>{{$v->price}}元</td>
+            <td>{{$v->buynum}}</td>
+            <td>{{$v->price*$v->buynum}}元</td>
+        </tr>
+        @endforeach
     </table>
-    <div>
-        {{csrf_field()}}
-        <button>返回购物车</button>
-        <button>提交订单</button>
-    </div>
+</div>
+<div>
+    {{csrf_field()}}
+    <button class="btn btn-primary">返回购物车</button>
+    <button class="btn btn-info">提交订单</button>
 </div>
 @endsection
