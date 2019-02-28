@@ -96,7 +96,7 @@
 <div class="row">
     <div class="col-md-4">
         {{csrf_field()}}
-        <button class="btn btn-primary">返回购物车</button>
+        <a href="{{url('center/cartlist')}}" class="btn btn-primary">返回购物车</a>
         <button class="btn btn-info">提交订单</button>
     </div>
     <div class="col-md-7 col-md-offset-1">
