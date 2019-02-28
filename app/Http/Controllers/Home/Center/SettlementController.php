@@ -22,7 +22,8 @@ class SettlementController extends BaseController
             ->where('userid', $userid)
             ->whereIn('cart.id', $cartsid)
             ->get();
-        return view("Home.Center.settlement", ['address' => $address, 'alladdress' => $alladdress], ['settlementList' => $settlementList]);
+        $total = 0;
+        return view("Home.Center.settlement", ['address' => $address, 'alladdress' => $alladdress, 'settlementList' => $settlementList, 'total' => $total]);
     }
     public function setAddress(Request $request)
     {

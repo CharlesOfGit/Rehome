@@ -23,6 +23,7 @@
                         </div>
                         &nbsp;&nbsp;
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">更多地址</a>
+                        <a href="{{url('center/address')}}">编辑地址</a>
                         <div id="collapseOne" class="panel-collapse collapse" aria-labelledby="headingOne">
                             <div>
                                 @foreach($alladdress as $v)
@@ -45,7 +46,7 @@
             </td>
         </tr>
         <script>
-        function setAddress(id) {
+            function setAddress(id) {
             var url = "{{url('settlement/setAddress')}}";
             var data = {
                 "id": id,
@@ -72,7 +73,7 @@
             <td colspan="4"><h4>商品信息</h4>
             </td>
         </tr>
-        <tr style="text-align:center">
+        <tr class="text-center">
             <td colspan="2">商品名称</td>
             <td>单价</td>
             <td>数量</td>
@@ -88,12 +89,22 @@
             <td>{{$v->buynum}}</td>
             <td>{{$v->price*$v->buynum}}元</td>
         </tr>
+        <input type="hidden" value="{{$total += $v->price * $v->buynum}}">
         @endforeach
     </table>
 </div>
-<div>
-    {{csrf_field()}}
-    <button class="btn btn-primary">返回购物车</button>
-    <button class="btn btn-info">提交订单</button>
+<div class="row">
+    <div class="col-md-4">
+        {{csrf_field()}}
+        <button class="btn btn-primary">返回购物车</button>
+        <button class="btn btn-info">提交订单</button>
+    </div>
+    <div class="col-md-7 col-md-offset-1">
+        <h3 style="margin: 0">共计：{{$total}}元</h3>
+        @foreach($address as $v)
+        <p style="margin: 0">收货地址：{{{$v->address}}}</p>
+        <p style="margin: 0">收货人：{{$v->consignee}}</p>
+        @endforeach
+    </div>
 </div>
 @endsection
