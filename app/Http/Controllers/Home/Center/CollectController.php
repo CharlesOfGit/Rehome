@@ -28,7 +28,6 @@ class CollectController extends BaseController
     //商品收藏
     public function add(Request $request)
     {
-
         $arr = $request->all();
         unset($arr['_token']);
         $productid = $arr['productid'];

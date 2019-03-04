@@ -45,27 +45,11 @@
                 </div>
             </td>
         </tr>
-        <script>
-            function setAddress(id) {
-            var url = "{{url('settlement/setAddress')}}";
-            var data = {
-                "id": id,
-                "_token": $('input[name=_token]').val()
-            };
-            var success = function(response) {
-                if (response.errno == 1) {
-                    parent.location.reload();
-                }
-            }
-            $.post(url, data, success, "json");
-        }
-        </script>
         <tr>
             <td colspan="5">
                 <h4>支付方式</h4>
                 <p>
-                    <span>货到付款</span>
-                    <span>在线支付</span>
+                    <h3>在线支付</h3>
                 </p>
             </td>
         </tr>
@@ -95,16 +79,44 @@
 </div>
 <div class="row">
     <div class="col-md-4">
-        {{csrf_field()}}
         <a href="{{url('center/cartlist')}}" class="btn btn-primary">返回购物车</a>
-        <button class="btn btn-info">提交订单</button>
+        {{csrf_field()}}
+        <button class="btn btn-info" onclick="saveorders()">提交订单</button>
     </div>
     <div class="col-md-7 col-md-offset-1">
-        <h3 style="margin: 0">共计：{{$total}}元</h3>
+        <h3 style="margin: 0" >共计：<span id="total_amonut">{{$total}}</span>元</h3>
         @foreach($address as $v)
-        <p style="margin: 0">收货地址：{{{$v->address}}}</p>
-        <p style="margin: 0">收货人：{{$v->consignee}}</p>
+        <p style="margin: 0">收货地址：<span id="Useraddress">{{$v->address}}</span></p>
+        <p style="margin: 0">收货人： <span>{{$v->consignee}}</span></p>
         @endforeach
     </div>
 </div>
+<script>
+function setAddress(id) {
+    var url = "{{url('settlement/setAddress')}}";
+    var data = {
+        "id": id,
+        "_token": $('input[name=_token]').val()
+    };
+    var success = function(response) {
+        if (response.errno == 1) {
+            parent.location.reload();
+        }
+    }
+    $.post(url, data, success, "json");
+}
+
+function saveorders() {
+    var url = "{{url('orders/saveOrders')}}";
+    var data = {
+        "address": $('#Useraddress').text(),
+        "total_amonut": $('#total_amonut').text(),
+        "_token": $('input[name=_token]').val()
+    };
+    var success = function(response) {
+
+    };
+    $.post(url, data, success, "json");
+}
+</script>
 @endsection

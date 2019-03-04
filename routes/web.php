@@ -65,7 +65,7 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('address/selected/{id}', "Center\AddressController@selected")->middleware('center');
     Route::get('address/del/{id}', "Center\AddressController@del")->middleware('center');
     //
-    Route::get('center/dingdan', "Center\CenterController@dingdan")->middleware('center');
+
     Route::get('center/message', "Center\CenterController@message")->middleware('center');
     Route::get('center/collect', "Center\CollectController@collect")->middleware('center');
     //我的购物车
@@ -82,4 +82,7 @@ Route::group(['namespace' => 'Home'], function () {
     //结算
     Route::post('settlement', "Center\SettlementController@settlement")->middleware('center');
     Route::post('settlement/setAddress', "Center\SettlementController@setAddress")->middleware('center');
+    //订单
+    Route::get('center/orders', "Center\OrdersController@orders")->middleware('center');
+    Route::post('orders/saveOrders', "Center\OrdersController@saveOrders")->middleware('center');
 });

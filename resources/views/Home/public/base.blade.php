@@ -38,7 +38,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a  href="{{url('center/userinfo')}}">个人信息</a></li>
-                        <li><a  href="{{url('center/dingdan')}}">我的订单</a></li>
+                        <li><a  href="{{url('center/orders')}}">我的订单</a></li>
                         <li><a  href="{{url('center/address')}}"> 收货地址</a></li>
                         <li><a  href="{{url('center/cartlist')}}">我的购物车</a></li>
                         <li><a  href="{{url('center/collect')}}">我的收藏</a></li>

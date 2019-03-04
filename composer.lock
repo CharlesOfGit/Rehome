@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1db5fdda266f9f8590df11be4f586291",
+    "content-hash": "69e82a5b909e0ecfd1fe5e6c4d6bd4fa",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1051,6 +1051,48 @@
                 "uuid"
             ],
             "time": "2018-07-19T23:38:55+00:00"
+        },
+        {
+            "name": "superbalist/laravel-ajax-redirector",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Superbalist/laravel-ajax-redirector.git",
+                "reference": "742ee61f6a90ec04fcb8e957a6a71dcf5b212b65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Superbalist/laravel-ajax-redirector/zipball/742ee61f6a90ec04fcb8e957a6a71dcf5b212b65",
+                "reference": "742ee61f6a90ec04fcb8e957a6a71dcf5b212b65",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": "^5.2",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Superbalist\\AjaxRedirector\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Superbalist.com a division of Takealot Online (Pty) Ltd",
+                    "email": "info@superbalist.com"
+                }
+            ],
+            "description": "A Laravel library for handling ajax redirects",
+            "time": "2017-07-04T08:05:38+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

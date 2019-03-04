@@ -58,18 +58,24 @@ function addCatr(productid) {
             Swal.fire({
                 position: 'center',
                 type: 'success',
-                title: '成功',
+                title: re.msg,
                 showConfirmButton: false,
                 timer: 1500
             }).then(function() { // 这里加了一个 then() 方法
                 location.reload();
             });
         } else {
-            alert(re.msg);
+            Swal.fire({
+                position: 'center',
+                type: 'success',
+                title: re.msg,
+                showConfirmButton: false,
+                timer: 1500
+            }).then(function() { // 这里加了一个 then() 方法
+                location.reload();
+            });
         }
-
     }
-
     $.post(url, data, success, "json", "_token");
 }
 
@@ -84,17 +90,26 @@ function addCollect(productid) {
             Swal.fire({
                 position: 'center',
                 type: 'success',
-                title: '成功',
+                title: re.msg,
                 showConfirmButton: false,
                 timer: 1500
             }).then(function() { // 这里加了一个 then() 方法
                 location.reload();
             });
         } else {
-            alert(re.msg);
+            Swal.fire({
+                position: 'center',
+                type: 'success',
+                title: re.msg,
+                showConfirmButton: false,
+                timer: 1500
+            }).then(function() { // 这里加了一个 then() 方法
+                location.reload();
+            });
         }
     }
     $.post(url, data, success, "json", "_token");
+
 }
 
 function delPro(productid) {

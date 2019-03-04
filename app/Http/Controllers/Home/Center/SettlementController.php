@@ -45,4 +45,5 @@ class SettlementController extends BaseController
         }
         echo json_encode($response);
     }
+
 }
