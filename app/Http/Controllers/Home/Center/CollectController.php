@@ -52,7 +52,6 @@ class CollectController extends BaseController
             ];
             echo json_encode($returnArr);
         }
-
     }
     //收藏删除
     public function delPro(Request $request)
