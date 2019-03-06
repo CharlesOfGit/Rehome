@@ -19,11 +19,6 @@ class CheckUserLogin
         if (!session()->has('centeruserid')) {
             //去登录页面
             // header('location:' . url('UserLogin'));
-            // return redirect('Home.Account.User.login');
-            // return response('Unauthorized.', 401);
-            // return response()->json(['error' => 'Unauthenticated.'], 401);
-            // return redirect("UserLogin");
-
             if ($request->expectsJson()) {
                 return response()->json(['msg' => '请登录']);
             }
