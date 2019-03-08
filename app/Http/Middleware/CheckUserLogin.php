@@ -15,13 +15,11 @@ class CheckUserLogin
      */
     public function handle($request, Closure $next)
     {
-
         if (!session()->has('centeruserid')) {
-            //去登录页面
-            // header('location:' . url('UserLogin'));
-            if ($request->expectsJson()) {
-                return response()->json(['msg' => '请登录']);
-            }
+            // header('location:' . url('admin/login'));
+            // exit();
+            return response()->json(['msg' => '请登录!']);
+            exit();
         }
 
         return $next($request); //继续执行

@@ -1,6 +1,4 @@
-@extends('Home.public.center')
-@section('title', "结算页")
-@section('main')
+@extends('Home.public.center') @section('title', "结算页") @section('main')
 <h3>结算页</h3>
 <div class="table table-bordered">
     <table class="table">
@@ -14,10 +12,8 @@
                             <div>
                                 <span>&nbsp;&nbsp;&nbsp;{{$v->consignee}}</span>
                                 <span>{{$v->address}}</span>
-                                <span>{{$v->mobile}}</span>
-                                @if($v->status == 1)
-                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-default">默认地址</span>
-                                @endif
+                                <span>{{$v->mobile}}</span> @if($v->status == 1) &nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="label label-default">默认地址</span> @endif
                             </div>
                             @endforeach
                         </div>
@@ -30,15 +26,13 @@
                                 <div class="pull-left" id="newaddress_{{$v->id}}">
                                     <span>&nbsp;&nbsp;&nbsp;{{$v->consignee}}</span>
                                     <span>{{$v->address}}</span>
-                                    <span>{{$v->mobile}}</span>
-                                    @if($v->status == 1)
-                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-default">默认地址</span>
-                                    @endif
+                                    <span>{{$v->mobile}}</span> @if($v->status == 1) &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="label label-default">默认地址</span> @endif
                                 </div>
                                 <div class="pull-right">
                                     <a href="javascript:void(0);" onclick="setAddress({{$v->id}})">选择地址</a>
-                                </div> <br>
-                                @endforeach
+                                </div>
+                                <br> @endforeach
                             </div>
                         </div>
                     </div>
@@ -54,7 +48,8 @@
             </td>
         </tr>
         <tr>
-            <td colspan="4"><h4>商品信息</h4>
+            <td colspan="4">
+                <h4>商品信息</h4>
             </td>
         </tr>
         <tr class="text-center">
@@ -73,19 +68,17 @@
             <td>{{$v->buynum}}</td>
             <td>{{$v->price*$v->buynum}}元</td>
         </tr>
-        <input type="hidden" value="{{$total += $v->price * $v->buynum}}">
-        @endforeach
+        <input type="hidden" value="{{$total += $v->price * $v->buynum}}"> @endforeach
     </table>
 </div>
 <div class="row">
     <div class="col-md-4">
         <a href="{{url('center/cartlist')}}" class="btn btn-primary">返回购物车</a>
-        {{csrf_field()}}
         <button class="btn btn-info" onclick="saveorders()">提交订单</button>
+        {!!csrf_field()!!}
     </div>
     <div class="col-md-7 col-md-offset-1">
-        <h3 style="margin: 0" >共计：<span id="total_amonut">{{$total}}</span>元</h3>
-        @foreach($address as $v)
+        <h3 style="margin: 0">共计：<span id="total_amonut">{{$total}}</span>元</h3> @foreach($address as $v)
         <p style="margin: 0">收货地址：<span id="Useraddress">{{$v->address}}</span></p>
         <p style="margin: 0">收货人： <span>{{$v->consignee}}</span></p>
         @endforeach
@@ -107,16 +100,38 @@ function setAddress(id) {
 }
 
 function saveorders() {
-    var url = "{{url('orders/saveOrders')}}";
+    var useraddress = $('#Useraddress').text();
+    var total_amonut = $('#total_amonut').text();
+    var url = '{{url("orders/saveorders")}}';
     var data = {
-        "address": $('#Useraddress').text(),
-        "total_amonut": $('#total_amonut').text(),
-        "_token": $('input[name=_token]').val()
+        'address': useraddress,
+        'total_amonut': total_amonut,
+        '_token': $('input[name=_token]').val()
     };
-    var success = function(response) {
-
-    };
-    $.post(url, data, success, "json");
+    var success = function(re) {
+        if (re.result == 'success') {
+            Swal.fire({
+                position: 'center',
+                type: 'success',
+                title: re.msg,
+                showConfirmButton: false,
+                timer: 1500
+            }).then(function() {
+                location.reload();
+            });
+        } else {
+            Swal.fire({
+                position: 'center',
+                type: 'info',
+                title: re.msg,
+                showConfirmButton: false,
+                timer: 1500
+            }).then(function() {
+                location.reload();
+            });
+        }
+    }
+    $.get(url, data, success, "json");
 }
 </script>
 @endsection

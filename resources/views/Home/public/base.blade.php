@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF token for ajax call -->
-    <meta name="_token" content="{{ csrf_token() }}" />
+    <meta name="_token" content="{{ csrf_token()}}"/>
     <title>@yield('title')</title>
     <link href="{{URL::asset('/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">

@@ -4,10 +4,29 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Oders extends Model
+class Orders extends Model
 {
-    protected $table   = "orders";
-    public $timestamps = false;
+    protected $table    = "orders";
+    public $timestamps  = false;
+    const UPDATED_AT    = 'order_at';
+    protected $fillable = [
+        'order_number',
+        'userid',
+        'address',
+        'total_amonut',
+        'remark',
+        'paid_at',
+        'payment_method',
+        'payment_no',
+        'refund_status',
+        'refund_no',
+        'closed',
+        'reviewed',
+        'ship_status',
+        'ship_data',
+        'extra',
+        'order_at',
+    ];
 
     public static function findAvailableNo()
     {
