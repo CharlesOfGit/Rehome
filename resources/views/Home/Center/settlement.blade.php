@@ -68,17 +68,19 @@
             <td>{{$v->buynum}}</td>
             <td>{{$v->price*$v->buynum}}元</td>
         </tr>
-        <input type="hidden" value="{{$total += $v->price * $v->buynum}}"> @endforeach
+        <input type="hidden" value="{{$total += $v->price * $v->buynum}}">
+        @endforeach
     </table>
 </div>
 <div class="row">
     <div class="col-md-4">
+         {!!csrf_field()!!}
         <a href="{{url('center/cartlist')}}" class="btn btn-primary">返回购物车</a>
-        <button class="btn btn-info" onclick="saveorders()">提交订单</button>
-        {!!csrf_field()!!}
+        <button class="btn btn-info" onclick="saveorders('{{$StrCartsid}}')">提交订单</button>
     </div>
     <div class="col-md-7 col-md-offset-1">
-        <h3 style="margin: 0">共计：<span id="total_amonut">{{$total}}</span>元</h3> @foreach($address as $v)
+        <h3 style="margin: 0">共计：<span id="total_amonut">{{$total}}</span>元</h3>
+        @foreach($address as $v)
         <p style="margin: 0">收货地址：<span id="Useraddress">{{$v->address}}</span></p>
         <p style="margin: 0">收货人： <span>{{$v->consignee}}</span></p>
         @endforeach
@@ -99,14 +101,15 @@ function setAddress(id) {
     $.post(url, data, success, "json");
 }
 
-function saveorders() {
+function saveorders(cartsid) {
     var useraddress = $('#Useraddress').text();
     var total_amonut = $('#total_amonut').text();
     var url = '{{url("orders/saveorders")}}';
     var data = {
         'address': useraddress,
-        'total_amonut': total_amonut,
-        '_token': $('input[name=_token]').val()
+        'cartsid':cartsid,
+        'total_amount': total_amonut,
+        '_token': $('input[name=_token]').val(),
     };
     var success = function(re) {
         if (re.result == 'success') {
@@ -131,7 +134,7 @@ function saveorders() {
             });
         }
     }
-    $.get(url, data, success, "json");
+    $.post(url, data, success, "json");
 }
 </script>
 @endsection

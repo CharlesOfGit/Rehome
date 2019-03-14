@@ -83,5 +83,5 @@ Route::group(['namespace' => 'Home'], function () {
     Route::post('settlement/setAddress', "Center\SettlementController@setAddress")->middleware('center');
     //订单
     Route::get('center/orders', "Center\OrdersController@orders")->middleware('center');
-    Route::get('orders/saveorders', "Center\OrdersController@saveOrderss")->middleware('center');
+    Route::post('orders/saveorders', "Center\SettlementController@saveOrderss")->middleware('center');
 });

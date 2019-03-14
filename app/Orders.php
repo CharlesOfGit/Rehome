@@ -27,7 +27,10 @@ class Orders extends Model
         'extra',
         'order_at',
     ];
-
+    public function items()
+    {
+        return $this->hasMany(OrderItems::class);
+    }
     public static function findAvailableNo()
     {
         // 订单流水号前缀
