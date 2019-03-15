@@ -12,7 +12,7 @@ class Orders extends Model
     protected $fillable = [
         'order_number',
         'userid',
-        'address',
+        'addressid',
         'total_amonut',
         'remark',
         'paid_at',

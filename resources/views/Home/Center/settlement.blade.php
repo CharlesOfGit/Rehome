@@ -81,8 +81,9 @@
     <div class="col-md-7 col-md-offset-1">
         <h3 style="margin: 0">共计：<span id="total_amonut">{{$total}}</span>元</h3>
         @foreach($address as $v)
-        <p style="margin: 0">收货地址：<span id="Useraddress">{{$v->address}}</span></p>
+        <p style="margin: 0">收货地址：<span>{{$v->address}}</span></p>
         <p style="margin: 0">收货人： <span>{{$v->consignee}}</span></p>
+        <input type="hidden" id="Useraddress" value="{{$v->id}}">
         @endforeach
     </div>
 </div>
@@ -102,11 +103,11 @@ function setAddress(id) {
 }
 
 function saveorders(cartsid) {
-    var useraddress = $('#Useraddress').text();
+    var useraddress = $('#Useraddress').val();
     var total_amonut = $('#total_amonut').text();
     var url = '{{url("orders/saveorders")}}';
     var data = {
-        'address': useraddress,
+        'addressid': useraddress,
         'cartsid':cartsid,
         'total_amount': total_amonut,
         '_token': $('input[name=_token]').val(),

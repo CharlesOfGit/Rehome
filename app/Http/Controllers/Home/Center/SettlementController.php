@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home\Center;
 use App\Address;
 use App\Cart;
 use App\Http\Controllers\BaseController;
+use App\OrderItems;
 use App\Orders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -52,32 +53,35 @@ class SettlementController extends BaseController
     {
         $all = $request->all();
         unset($all['_token']);
-        $address     = $all['address'];
+        $address     = $all['addressid'];
         $totalAmount = $all['total_amount'];
         $userid      = session()->get('centeruserid');
         $orderNumber = Orders::findAvailableNo();
         date_default_timezone_set("PRC");
         $order_at = date('Y-m-d h:i:s', time());
-
-        // $Orders = new Orders([
-        //     'order_number' => $orderNumber,
-        //     'userid'       => $userid,
-        //     'address'      => $address,
-        //     'total_amount' => $totalAmount,
-        //     'order_at'     => $order_at,
-        // ]);
-        // $re       = $Orders->save();
-
-        // $Oedersid = $Orders->id;
-        $cartsid = explode(',', $all['cartsid']);
-        foreach ($cartsid as $value) {
-            $sku = Cart::find($value);
-            var_dump($sku);
-            exit();
+        $Orders   = new Orders([
+            'order_number' => $orderNumber,
+            'userid'       => $userid,
+            'addressid'    => $address,
+            'total_amonut' => $totalAmount,
+            'order_at'     => $order_at,
+        ]);
+        $re         = $Orders->save();
+        $Ordersid   = $Orders->id;
+        $cartsidArr = explode(',', $all['cartsid']);
+        foreach ($cartsidArr as $value) {
+            $cartsid = Cart::find($value);
+            $item    = new OrderItems([
+                'orderid'   => $Ordersid,
+                'productid' => $cartsid['productid'],
+                'buynum'    => $cartsid['buynum'],
+                'price'     => $cartsid['price'],
+            ]);
+            $OrderItems = $item->save();
         }
-
-        $message   = $re ? "添加成功" : "添加失败";
-        $returnArr = [
+        $deleteCartPro = Cart::whereIn('id', $cartsidArr)->delete();
+        $message       = $re && $OrderItems && $deleteCartPro ? "添加成功" : "添加失败";
+        $returnArr     = [
             'result' => $re ? 'success' : 'error',
             'msg'    => $message,
             'data'   => null,
