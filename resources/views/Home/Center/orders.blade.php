@@ -1,76 +1,64 @@
-@extends('Home.public.center')
-@section('title',"用户订单")
-@section('main')
+@extends('Home.public.center') @section('title',"用户订单") @section('main')
 <div class="row">
-    <div class="col-lg-10 offset-lg-1">
-        <div class="card">
-            <div class="card-header">
-               <h3>订单详情</h3>
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>商品信息</th>
-                            <th class="text-center">单价</th>
-                            <th class="text-center">数量</th>
-                            <th class="text-right item-amount">小计</th>
-                        </tr>
-                    </thead>
-
-                    <tr>
-                        <td class="product-info">
-                            <div class="preview">
-                                <a target="_blank" href="#">
-                <img src="#">
-              </a>
-                            </div>
-                            <div>
-                                <span class="product-title">
-                 <a target="_blank" href="#"></a>
-              </span>
-                                <span class="sku-title"></span>
-                            </div>
-                        </td>
-                        <td class="sku-price text-center vertical-middle">￥</td>
-                        <td class="sku-amount text-center vertical-middle"></td>
-                        <td class="item-amount text-right vertical-middle">￥</td>
-                    </tr>
-
-                    <tr>
-                        <td colspan="4"></td>
-                    </tr>
-                </table>
-                <div class="order-bottom">
-                    <div class="order-info">
-                        <div class="line">
-                            <div class="line-label">收货地址：</div>
-                            <div class="line-value"></div>
+    <h3>订单详情</h3>
+    <table class="table" style="padding: 0;margin: 0;" class="text-center">
+        <thead>
+            <tr>
+                <td class="text-center">商品信息</td>
+                <td class="text-center">单价</td>
+                <td class="text-center">收货人</td>
+                <td class="text-center">总金额</td>
+                <td class="text-center">状态</td>
+                <td class="text-center">操作</td>
+            </tr>
+        </thead>
+        @foreach($OrderItemsList as $v)
+        <tr>
+            <td class="text-center" colspan="">
+                <div class="col-md-4">
+                    <img style="width:80px; height:80px;" src="{{ asset('uploads') }}/{{$v->path}}">
+                </div>
+                <div class="col-md-4">
+                    <span class="text-center">{{$v->title}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span class="text-center">x{{$v->buynum}}</span>
+                </div>
+            </td>
+            <td class="text-center">￥{{$v->price}}</td>
+            <td class="text-center">{{$v->consignee}}</td>
+            <td class="text-center">￥{{$v->price}}</td>
+            <td class="text-center">状态</td>
+            <td class="text-center">
+                <div><a href="#">付款</a></div>
+                <div><a href="#">取消订单</a></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <div>
+                    <div class="col-md-6">
+                        <div>
+                            <div>收货地址：{{$v->address}}</div>
                         </div>
-                        <div class="line">
-                            <div class="line-label">订单备注：</div>
-                            <div class="line-value"></div>
-                        </div>
-                        <div class="line">
-                            <div class="line-label">订单编号：</div>
-                            <div class="line-value"></div>
-                        </div>
+                        <div>订单备注：</div>
+                        <div>订单编号：{{$v->order_number}}</div>
                     </div>
-                    <div class="order-summary text-right">
-                        <div class="total-amount">
-                            <span>订单总价：</span>
-                            <div class="value">￥</div>
+                    <div class="col-md-4 col-md-offset-2">
+                        <div>
+                            <span>订单总价：￥{{$v->total_amonut}}</span>
                         </div>
                         <div>
-                            <span>订单状态：</span>
-                            <div class="value">
-
-                            </div>
+                            <span>订单状态：未支付</span>
+                        </div>
+                        <div>
+                            <span>订单时间：{{$v->order_at}}</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </td>
+        </tr>
+        @endforeach
+    </table>
 </div>
 @endsection
