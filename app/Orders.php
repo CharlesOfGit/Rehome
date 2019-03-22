@@ -29,7 +29,7 @@ class Orders extends Model
     ];
     public function items()
     {
-        return $this->hasMany(OrderItems::class);
+        return $this->belongsTo(OrderItems::class);
     }
     public static function findAvailableNo()
     {
