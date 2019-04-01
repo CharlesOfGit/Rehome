@@ -9,30 +9,27 @@
                 <td class="text-center">商品信息</td>
                 <td class="text-center">单价</td>
                 <td class="text-center">状态</td>
-                <td class="text-center">操作</td>
             </tr>
         </thead>
         @foreach($OrderItemsListArr as $Orders)
         @foreach($Orders['OrderInfo'] as $Info)
         <tr>
-            <td colspan="6">
+            <td colspan="4">
                 <div>
-                    <div class="col-md-6">
-                        <div>订单编号：{{$Info->order_number}}</div>
+                    <div class="col-md-8">
+                        订单编号：{{$Info->order_number}}
                     </div>
-                    <div class="col-md-4 col-md-offset-2">
-                        <div>
-                            <span>订单时间：{{$Info->order_at}}</span>
-                        </div>
+                    <div>
+                        <span>{{$Info->order_at}}
+                       </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
                     </div>
                 </div>
             </td>
         </tr>
-
         @foreach($Orders['OrderItemsInfoArr'] as $Items)
         @foreach($Items as $Item)
         <tr>
-            <td class="text-center">
+            <td class="text-center" colspan="">
                 <div class="col-md-4">
                     <img style="width:80px; height:80px;" src="{{asset('uploads')}}/{{$Item->path}}">
                 </div>
@@ -45,12 +42,11 @@
             </td>
             <td class="text-center">￥{{$Item->price}}</td>
             <td class="text-center">订单详情</td>
-            <td class="text-center"><a href="#">删除订单</a></td>
         </tr>
-         @endforeach
-         @endforeach
+        @endforeach
+        @endforeach
         <tr>
-            <td colspan="6">
+            <td colspan="4">
                 <div>
                     <div class="col-md-6">
                         <div>

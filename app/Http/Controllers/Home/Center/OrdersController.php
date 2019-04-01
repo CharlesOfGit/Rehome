@@ -38,8 +38,6 @@ class OrdersController extends BaseController
                     ->select('productimage.path', 'order_items.buynum', 'product.title', 'product.price', 'orders.order_number', 'orders.order_at')
                     ->where('order_items.id', $key->id)
                     ->get();
-                // dd($OrderItemsInfo);
-                // exit();
                 $OrderItemsInfoArr[$key->id] = reset($OrderItemsInfo);
             }
 
@@ -51,10 +49,6 @@ class OrdersController extends BaseController
             unset($OrderInfo);
             unset($OrderItemsInfoArr);
         }
-        // dd($OrderItemsListArr);
-        // echo "<pre>";
-        // print_r($OrderItemsListArr);
-        // exit();
         return view("Home.Center.orders", ['OrderItemsListArr' => $OrderItemsListArr]);
     }
 

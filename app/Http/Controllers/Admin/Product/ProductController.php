@@ -70,7 +70,8 @@ class ProductController extends Controller
     // 修改
     public function usave(Request $request)
     {
-        $id = $arr['id'];
+        $arr = $request->all();
+        $id  = $arr['id'];
         unset($arr['_token']);
         unset($arr['upload']);
         unset($arr['id']);

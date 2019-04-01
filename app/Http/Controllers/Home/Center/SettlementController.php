@@ -7,6 +7,7 @@ use App\Cart;
 use App\Http\Controllers\BaseController;
 use App\OrderItems;
 use App\Orders;
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -59,7 +60,8 @@ class SettlementController extends BaseController
         $orderNumber = Orders::findAvailableNo();
         date_default_timezone_set("PRC");
         $order_at = date('Y-m-d h:i:s', time());
-        $Orders   = new Orders([
+        //存入订单表
+        $Orders = new Orders([
             'order_number' => $orderNumber,
             'userid'       => $userid,
             'addressid'    => $address,
@@ -69,6 +71,7 @@ class SettlementController extends BaseController
         $re         = $Orders->save();
         $Ordersid   = $Orders->id;
         $cartsidArr = explode(',', $all['cartsid']);
+        // 存入订单详情表
         foreach ($cartsidArr as $value) {
             $cartsid = Cart::find($value);
             $item    = new OrderItems([
@@ -78,10 +81,17 @@ class SettlementController extends BaseController
                 'price'     => $cartsid['price'],
             ]);
             $OrderItems = $item->save();
+            // 减库存
+            $libnum = Product::where('id', $cartsid['productid'])->value('libnum');
+            $num    = $libnum - $cartsid['buynum'];
+
+            $decreaseStock = DB::table('product')->where('id', $cartsid['productid'])->update(['libnum' => $num]);
         }
+        //删除购物车商品
         $deleteCartPro = Cart::whereIn('id', $cartsidArr)->delete();
-        $message       = $re && $OrderItems && $deleteCartPro ? "添加成功" : "添加失败";
-        $returnArr     = [
+
+        $message   = $re && $OrderItems && $deleteCartPro ? "添加成功" : "添加失败";
+        $returnArr = [
             'result' => $re ? 'success' : 'error',
             'msg'    => $message,
             'data'   => null,
