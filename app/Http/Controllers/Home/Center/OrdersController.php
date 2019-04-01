@@ -49,6 +49,7 @@ class OrdersController extends BaseController
             unset($OrderInfo);
             unset($OrderItemsInfoArr);
         }
+
         return view("Home.Center.orders", ['OrderItemsListArr' => $OrderItemsListArr]);
     }
 
